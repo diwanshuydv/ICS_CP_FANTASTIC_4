@@ -16,7 +16,7 @@
 1. Clone the repository.
 2. Compile the code using a C compiler (e.g., gcc).
 3. Run the executable. 
-4.  Read the instruction on the screen carefully to proceed further.
+4.  Read the instructions on the screen carefully to proceed further.
 
    
 ## Requirements
