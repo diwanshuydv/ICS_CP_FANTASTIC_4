@@ -29,7 +29,7 @@ int pant_count = 0, shirt_count = 0, tshirt_count = 0, kurta_count = 0, shorts_c
 struct customer customers[1000];
 int customer_count = 0;
 
-void write_customer_to_file(struct customer *s)
+void write_customer_to_file(struct customer *s, struct order *ord)
 {
     FILE *file = fopen("customer_details.txt", "a");
     if (file == NULL)
@@ -38,11 +38,11 @@ void write_customer_to_file(struct customer *s)
         exit(1);
     }
 
-    fprintf(file, "%s %d %lld %d %d\n", s->name, s->age, s->phone_number, s->id, s->password);
+    fprintf(file, "%s %d %lld %d %d %s\n", s->name, s->age, s->phone_number, s->id, s->password, ord->status);
     fclose(file);
 }
 
-void read_customers_from_file(struct customer *s, int *customer_count)
+void read_customers_from_file(struct customer *s, int *customer_count, struct order *ord)
 {
     FILE *file = fopen("customer_details.txt", "r");
     if (file == NULL)
@@ -51,7 +51,7 @@ void read_customers_from_file(struct customer *s, int *customer_count)
         exit(1);
     }
 
-    while (fscanf(file, "%s %d %lld %d %d", s[*customer_count].name, &s[*customer_count].age, &s[*customer_count].phone_number, &s[*customer_count].id, &s[*customer_count].password) == 5)
+    while (fscanf(file, "%s %d %lld %d %d %s", s[*customer_count].name, &s[*customer_count].age, &s[*customer_count].phone_number, &s[*customer_count].id, &s[*customer_count].password, ord[*customer_count].status) == 6)
     {
         (*customer_count)++;
     }
@@ -93,13 +93,13 @@ void register_customer(struct customer *s, int *customer_count, char *name, int 
     s[*customer_count].phone_number = phone_number;
     s[*customer_count].password = password;
     strcpy(s[*customer_count].name, name);
-    strcpy(order_details[*customer_count].status,"NOT RECIEVED");
+    strcpy(order_details[*customer_count].status, "NOT RECIEVED");
 
     // Increment customer count
     (*customer_count)++;
 
     // Write the new customer to the file
-    write_customer_to_file(&s[*customer_count - 1]);
+    write_customer_to_file(&s[*customer_count - 1], &order_details[*customer_count - 1]);
 
     printf("\nCongratulations!!!\nYour account has been successfully made.\n\nYour ID is %d and your password is %d.\n\n", new_id, password);
 }
@@ -191,7 +191,7 @@ int main()
 {
 
     // Load existing customer details from file
-    read_customers_from_file(customers, &customer_count);
+    read_customers_from_file(customers, &customer_count, order_details);
 
     int selected_choice;
     int age, customer_id = customer_count + 1;
@@ -292,15 +292,14 @@ int main()
                                 }
                                 else
                                 {
-                                    printf("PLEASE ENTER YOUR NEW PASSWORD\n");
                                     printf("(PASSWORD MUST BE AN INTEGER)\n");
                                     while (1)
                                     {
-                                        
+                                        printf("PLEASE ENTER NEW PASSWORD-: ");
                                         if (scanf("%d", &passcode) == 1)
                                         {
                                             customers[place_order_id - 1].password = passcode;
-                                            printf("PASSWORD CHANGED SUCCESSFULLY\n");
+                                            printf("PASSWORD CHANGED SUCCESSFULLY\n\n");
                                             break;
                                         }
                                         else
@@ -353,7 +352,8 @@ int main()
                         if (passcode == 12345)
                         {
                             printf("PLEASE UPDATE THE CURRENT STATUS\n");
-                            scanf("%s", order_details[place_order_id-1].status);
+                            scanf("%s", order_details[place_order_id - 1].status);
+                            printf("STATUS UPDATED SUCCESSFULLY!!\n\n");
                         }
                     }
                     break;
@@ -410,7 +410,7 @@ int main()
                 {
                     printf("PLEASE GIVE YOUR FEEDBACK!!\n");
                     scanf("%s", order_details[place_order_id - 1].feedback);
-                    printf("THANK YOU VERY MUCH. WE APPRECIATE YOUR FEEDBACK\n");
+                    printf("THANK YOU VERY MUCH. WE APPRECIATE YOUR FEEDBACK\n\n");
                 }
                 else if (order_details[place_order_id - 1].total_order == 0)
                 {
