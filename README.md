@@ -11,12 +11,12 @@
 - It takes the orders from the customers and they can also view their status.
 - The customers can also check their bill and give their feedback.
 
-## How to Play
+## How to Use
 
 1. Clone the repository.
 2. Compile the code using a C compiler (e.g., gcc).
 3. Run the executable. 
-4.  Read the instructions on the screen carefully to proceed further.
+4. Read the instructions on the screen carefully to proceed further.
 
    
 ## Requirements
