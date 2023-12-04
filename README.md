@@ -7,9 +7,10 @@
 
 ## Features
 
-- Registers the customer by assigning them unique ID and password.
-- It takes the orders from the customers and they can also view their status.
-- The customers can also check their bill and give their feedback.
+- Registers the customer by assigning them unique ID.
+- The customers can set up their own password.
+- It takes the orders from the customers.
+- The customers can also check their bill.
 
 ## How to Use
 
