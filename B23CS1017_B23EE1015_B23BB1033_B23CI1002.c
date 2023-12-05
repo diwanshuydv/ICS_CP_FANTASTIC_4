@@ -18,12 +18,6 @@ struct customer
     int total_bill;
 };
 
-struct order
-{
-    int total_order;
-    char cloth_type[50];
-};
-
 struct customer customers[1000];
 int customer_count = 0;
 
@@ -77,6 +71,16 @@ void register_customer(struct customer *s, int *customer_count, char *name, int 
     {
         printf("You have already registered. Your ID is %d.\n", s[existing_customer_id].id);
         return;
+    }
+
+    //Check if password already exists
+    for(int i=0; i < *customer_count; i++)
+    {
+        if(s[i].password == password)
+        {
+            printf("This password has already been taken. Please try something new.\n");
+            return;
+        }
     }
 
     // Find a new ID
