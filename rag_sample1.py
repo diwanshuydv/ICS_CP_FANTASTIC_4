@@ -7,12 +7,12 @@ Original file is located at
     https://colab.research.google.com/drive/1GLGRpXVd5MFuduyiGQ53tFveC_uLG6tI
 """
 
-'''!pip install langchain
+!pip install langchain
 !pip install openai
 !pip install pypdf
 !pip install tiktoken
 !pip install chromadb
-!pip install streamlit'''
+!pip install streamlit
 
 import langchain
 import openai
